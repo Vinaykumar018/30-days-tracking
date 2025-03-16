@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-Month Challenge Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .completed {
+            background-color: #c8e6c9;
+        }
+        .missed {
+            background-color: #ffcdd2;
+        }
+    </style>
+</head>
+<body>
+    <h1>1-Month Challenge Tracker</h1>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Self-Study</th>
+            <th>Dance</th>
+            <th>Energy</th>
+            <th>Mindset</th>
+            <th>Exercise</th>
+            <th>Skill</th>
+        </tr>
+        <tr>
+            <td><b>Description</b></td>
+            <td>Learn something daily for career growth</td>
+            <td>Practice for 5-10 minutes</td>
+            <td>Maintain discipline (No fap)</td>
+            <td>Stick to one mindset (use past experience & then do)</td>
+            <td>30 minutes of physical activity</td>
+            <td>Enhance any skill (cooking, washing,communication,knowledge, etc.)</td>
+        </tr>
+        <script>
+            let today = new Date();
+            for (let i = 1; i <= 30; i++) {
+                let currentDate = new Date(today);
+                currentDate.setDate(today.getDate() + (i - 1));
+                let formattedDate = currentDate.toISOString().split('T')[0];
+                
+                document.write(`<tr>
+                    <td>Day ${i} - ${formattedDate}</td>
+                    <td contenteditable='true'></td>
+                    <td contenteditable='true'></td>
+                    <td contenteditable='true'></td>
+                    <td contenteditable='true'></td>
+                    <td contenteditable='true'></td>
+                    <td contenteditable='true'></td>
+                </tr>`);
+            }
+        </script>
+    </table>
+</body>
+</html>
