@@ -50,28 +50,51 @@
             <td>Learn something daily for career growth</td>
             <td>Practice for 5-10 minutes</td>
             <td>Maintain discipline (No fap)</td>
-            <td>Stick to one mindset (use past experience & then do)</td>
+            <td>Stick to one mindset</td>
             <td>30 minutes of physical activity</td>
-            <td>Enhance any skill (cooking, washing,communication,knowledge, etc.)</td>
+            <td>Enhance any skill (cooking, washing, etc.)</td>
         </tr>
-        <script>
-            let today = new Date();
-            for (let i = 1; i <= 30; i++) {
-                let currentDate = new Date(today);
-                currentDate.setDate(today.getDate() + (i - 1));
-                let formattedDate = currentDate.toISOString().split('T')[0];
-                
-                document.write(`<tr>
-                    <td>Day ${i} - ${formattedDate}</td>
-                    <td contenteditable='true'></td>
-                    <td contenteditable='true'></td>
-                    <td contenteditable='true'></td>
-                    <td contenteditable='true'></td>
-                    <td contenteditable='true'></td>
-                    <td contenteditable='true'></td>
-                </tr>`);
-            }
-        </script>
+        <tbody id="table-body"></tbody>
     </table>
+    <button onclick="saveData()">Save Progress</button>
+    <script>
+        let today = new Date();
+        let tableBody = document.getElementById("table-body");
+        let savedData = JSON.parse(localStorage.getItem("challengeData")) || {};
+
+        for (let i = 1; i <= 30; i++) {
+            let currentDate = new Date(today);
+            currentDate.setDate(today.getDate() + (i - 1));
+            let formattedDate = currentDate.toISOString().split('T')[0];
+
+            let row = document.createElement("tr");
+            row.innerHTML = `<td>Day ${i} - ${formattedDate}</td>`;
+            
+            for (let j = 0; j < 6; j++) {
+                let cell = document.createElement("td");
+                cell.contentEditable = true;
+                let key = `day${i}-col${j}`;
+                if (savedData[key]) {
+                    cell.innerText = savedData[key];
+                }
+                cell.oninput = () => saveData();
+                row.appendChild(cell);
+            }
+            tableBody.appendChild(row);
+        }
+
+        function saveData() {
+            let dataToSave = {};
+            let rows = tableBody.getElementsByTagName("tr");
+            for (let i = 0; i < rows.length; i++) {
+                let cells = rows[i].getElementsByTagName("td");
+                for (let j = 1; j < cells.length; j++) {
+                    let key = `day${i+1}-col${j-1}`;
+                    dataToSave[key] = cells[j].innerText;
+                }
+            }
+            localStorage.setItem("challengeData", JSON.stringify(dataToSave));
+        }
+    </script>
 </body>
 </html>
